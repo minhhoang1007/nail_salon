@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nail_app/screens/home/HomeScreen.dart';
+import 'package:nail_app/screens/sevice/BookSevice.dart';
 import 'package:nail_app/screens/signin/EnterPhone.dart';
 import 'package:nail_app/screens/signin/SignIn.dart';
 
@@ -18,6 +19,7 @@ class MyApp extends StatelessWidget {
       // initialRoute: "/",
       // routes: {"/": (context) => SignIn(), "/home": (context) => HomeScreen()},
       home: SignIn(),
+      //home: BookSevice(),
     );
   }
 }

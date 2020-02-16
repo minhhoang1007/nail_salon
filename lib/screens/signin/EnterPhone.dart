@@ -175,10 +175,10 @@ class _EnterPhoneState extends State<EnterPhone> {
             ),
             GestureDetector(
               onTap: () {
-                // final phone = _phoneControllner.text.trim();
-                // login(phone, context);
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => HomeScreen()));
+                final phone = _phoneControllner.text.trim();
+                login(phone, context);
+                // Navigator.push(context,
+                //     MaterialPageRoute(builder: (context) => HomeScreen()));
               },
               child: Container(
                 margin:

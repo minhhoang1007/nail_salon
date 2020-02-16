@@ -142,7 +142,23 @@ class _OrderScreenState extends State<OrderScreen> {
                       child: Column(
                         children: <Widget>[
                           Text("YÊU CẦU ĐẶC BIỆT KHÁC"),
-                          TextField(),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: TextField(
+                              decoration: new InputDecoration(
+                                  border: new OutlineInputBorder(
+                                      borderSide:
+                                          new BorderSide(color: Colors.teal)),
+                                  hintText: 'Nhap vao day',
+                                  //helperText: 'Keep it short, this is just a demo.',
+                                  //labelText: 'Life story',
+
+                                  prefixText: ' ',
+                                  //suffixText: 'USD',
+                                  suffixStyle:
+                                      const TextStyle(color: Colors.green)),
+                            ),
+                          ),
                         ],
                       ),
                     ),

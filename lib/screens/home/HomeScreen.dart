@@ -1,7 +1,10 @@
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/material.dart';
+import 'package:nail_app/api/GetAllSalon.dart';
+import 'package:nail_app/models/NailSalon.dart';
 import 'package:nail_app/screens/home/DrawerScreen.dart';
 import 'package:nail_app/screens/sevice/SeviceScreen.dart';
+import 'package:nail_app/screens/signin/SignIn.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key key}) : super(key: key);
@@ -24,6 +27,45 @@ class _HomeScreenState extends State<HomeScreen> {
     Item("assets/images/banner5.jpg", "My Nail Salon 5 ",
         "Số 1, Kim Mã, Ba Đình, Hà Nội"),
   ];
+  Future _showDialog(BuildContext context, String message) async {
+    return showDialog(
+      context: context,
+      child: AlertDialog(
+        title: Text(message),
+        actions: <Widget>[
+          FlatButton(
+            onPressed: () => Navigator.push(
+                context, MaterialPageRoute(builder: (context) => SignIn())),
+            child: Text('Yes'),
+          ),
+          FlatButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text('No'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  List<Salon> listData = List();
+  @override
+  void initState() {
+    super.initState();
+    loadAllSalon();
+  }
+
+  loadAllSalon() async {
+    final data = await GetAllSalon.getListSalon();
+    print(data);
+    if (data == null) {
+      return;
+    }
+    if (this.mounted) {
+      this.setState(() {
+        listData = data;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -102,7 +144,8 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               Expanded(
                 child: ListView.builder(
-                  itemCount: items.length,
+                  //itemCount: items.length,
+                  itemCount: listData.length,
                   scrollDirection: Axis.vertical,
                   controller: ScrollController(),
                   itemBuilder: (BuildContext context, int index) => Container(
@@ -112,21 +155,21 @@ class _HomeScreenState extends State<HomeScreen> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         mainAxisSize: MainAxisSize.max,
                         children: <Widget>[
-                          Image.asset(
-                            items[index].img, fit: BoxFit.fill,
-                            //'${listData[index].image}',
+                          Image.network(
+                            //items[index].img, fit: BoxFit.fill,
+                            '${listData[index].image}', fit: BoxFit.fill,
                           ),
                           Text(
-                            items[index].name,
-                            // '${listData[index].name}',
+                            //items[index].name,
+                            '${listData[index].name}',
                             style: TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 20.0),
                           ),
                           Text(
-                            items[index].address,
-                            //'${listData[index].address}',
+                            //items[index].address,
+                            '${listData[index].address}',
                             style: TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold,
@@ -139,8 +182,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => SeviceScreen(
-                                      ima: items[index].img,
-                                      name: items[index].name,
+                                      // ima: items[index].img,
+                                      // name: items[index].name,
+                                      salon: listData[index],
                                     )));
                         //builder: (context) => RestaurantMenu()));
                       },

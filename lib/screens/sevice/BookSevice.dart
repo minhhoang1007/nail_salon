@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:core';
-
+import 'package:intl/intl.dart';
 import 'package:nail_app/screens/order/OrderScreen.dart';
+import 'dart:developer';
 
 class BookSevice extends StatefulWidget {
   @override
@@ -13,29 +14,37 @@ class _BookSeviceState extends State<BookSevice>
   TabController controller;
   List<Item> item = [
     Item(
-        "https://zema.com.vn/wp-content/uploads/bfi_thumb/son_gel_13-39j80fyhh0ebky3ohn12ww.jpg",
-        "Tran Le Quoc"),
+      "https://zema.com.vn/wp-content/uploads/bfi_thumb/son_gel_13-39j80fyhh0ebky3ohn12ww.jpg",
+      "Tran Le Quoc",
+    ),
     Item(
-        "https://zema.com.vn/wp-content/uploads/bfi_thumb/son_gel_13-39j80fyhh0ebky3ohn12ww.jpg",
-        "Le Binh Phat"),
+      "https://zema.com.vn/wp-content/uploads/bfi_thumb/son_gel_13-39j80fyhh0ebky3ohn12ww.jpg",
+      "Le Binh Phat",
+    ),
     Item(
-        "https://zema.com.vn/wp-content/uploads/bfi_thumb/son_gel_13-39j80fyhh0ebky3ohn12ww.jpg",
-        "Ngo Kien Huy"),
+      "https://zema.com.vn/wp-content/uploads/bfi_thumb/son_gel_13-39j80fyhh0ebky3ohn12ww.jpg",
+      "Ngo Kien Huy",
+    ),
     Item(
-        "https://zema.com.vn/wp-content/uploads/bfi_thumb/son_gel_13-39j80fyhh0ebky3ohn12ww.jpg",
-        "Ngo Kien Huy"),
+      "https://zema.com.vn/wp-content/uploads/bfi_thumb/son_gel_13-39j80fyhh0ebky3ohn12ww.jpg",
+      "Ngo Kien Huy",
+    ),
     Item(
-        "https://zema.com.vn/wp-content/uploads/bfi_thumb/son_gel_13-39j80fyhh0ebky3ohn12ww.jpg",
-        "Ngo Kien Huy"),
+      "https://zema.com.vn/wp-content/uploads/bfi_thumb/son_gel_13-39j80fyhh0ebky3ohn12ww.jpg",
+      "Ngo Kien Huy",
+    ),
     Item(
-        "https://zema.com.vn/wp-content/uploads/bfi_thumb/son_gel_13-39j80fyhh0ebky3ohn12ww.jpg",
-        "Ngo Kien Huy"),
+      "https://zema.com.vn/wp-content/uploads/bfi_thumb/son_gel_13-39j80fyhh0ebky3ohn12ww.jpg",
+      "Ngo Kien Huy",
+    ),
     Item(
-        "https://zema.com.vn/wp-content/uploads/bfi_thumb/son_gel_13-39j80fyhh0ebky3ohn12ww.jpg",
-        "Ngo Kien Huy"),
+      "https://zema.com.vn/wp-content/uploads/bfi_thumb/son_gel_13-39j80fyhh0ebky3ohn12ww.jpg",
+      "Ngo Kien Huy",
+    ),
     Item(
-        "https://zema.com.vn/wp-content/uploads/bfi_thumb/son_gel_13-39j80fyhh0ebky3ohn12ww.jpg",
-        "Ngo Kien Huy"),
+      "https://zema.com.vn/wp-content/uploads/bfi_thumb/son_gel_13-39j80fyhh0ebky3ohn12ww.jpg",
+      "Ngo Kien Huy",
+    ),
   ];
   List<String> hour = [
     "8h00",
@@ -56,6 +65,8 @@ class _BookSeviceState extends State<BookSevice>
     super.initState();
     controller = TabController(length: 2, vsync: this, initialIndex: 0);
   }
+
+  var now = new DateTime.now();
 
   @override
   Widget build(BuildContext context) {
@@ -86,10 +97,12 @@ class _BookSeviceState extends State<BookSevice>
                   controller: controller,
                   tabs: <Widget>[
                     Tab(
-                      text: "Hôm nay",
+                      text: "Hôm nay \n" + DateFormat("dd-MM-yyyy").format(now),
                     ),
                     Tab(
-                      text: "Ngày mai",
+                      text: "Ngày mai \n " +
+                          DateFormat("dd-MM-yyyy").format(
+                              DateTime(now.year, now.month, now.day + 1)),
                     ),
                   ],
                 ),
@@ -102,35 +115,67 @@ class _BookSeviceState extends State<BookSevice>
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 4),
                         itemBuilder: (BuildContext context, int index) {
-                          return Container(
-                            height: height * 0.06,
-                            child: Card(
-                              child: Column(
+                          return GestureDetector(
+                            onTap: () {
+                              setState(() {});
+                            },
+                            child: Container(
+                              height: height * 0.06,
+                              child: Stack(
                                 children: <Widget>[
-                                  Container(
-                                    child: Center(
-                                      child: Text(hour[index],
-                                          style: TextStyle(fontSize: 24)),
+                                  Card(
+                                    child: Column(
+                                      children: <Widget>[
+                                        Container(
+                                          child: Center(
+                                            child: Text(hour[index],
+                                                style: TextStyle(fontSize: 24)),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.only(
+                                              top: 10, bottom: 10),
+                                          child: Container(
+                                            child: Text(
+                                              index % 2 == 0
+                                                  ? "Hết chỗ"
+                                                  : "Còn chỗ",
+                                              style: TextStyle(fontSize: 13),
+                                            ),
+                                          ),
+                                        ),
+                                        Container(
+                                          height: 10,
+                                          width: double.infinity,
+                                          color: index % 2 == 0
+                                              ? Colors.red
+                                              : Colors.green,
+                                        ),
+                                      ],
                                     ),
+                                    elevation: 5,
                                   ),
-                                  Padding(
-                                    padding:
-                                        EdgeInsets.only(top: 10, bottom: 10),
+                                  Positioned(
+                                    left: 80,
                                     child: Container(
-                                      child: Text(
-                                        index % 2 == 0 ? "Hết chỗ" : "Còn chỗ",
-                                        style: TextStyle(fontSize: 13),
+                                      height: 10,
+                                      width: 10,
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(120),
+                                          border:
+                                              Border.all(color: Colors.grey)),
+                                      child: Center(
+                                        child: Icon(
+                                          Icons.check,
+                                          color: Colors.green,
+                                          size: 8,
+                                        ),
                                       ),
                                     ),
                                   ),
-                                  Divider(
-                                    color: index % 2 == 0
-                                        ? Colors.red
-                                        : Colors.green,
-                                  ),
                                 ],
                               ),
-                              elevation: 5,
                             ),
                           );
                         },
@@ -179,68 +224,121 @@ class _BookSeviceState extends State<BookSevice>
                   ),
                 ),
                 Container(
-                    height: height * 0.2,
+                    height: height * 0.25,
                     child: ListView.builder(
                       itemCount: item.length,
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (BuildContext context, int index) {
-                        return Container(
-                          decoration: BoxDecoration(
-                              color: index % 2 == 0 ? Colors.green : Colors.red,
+                        return GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              item[index].selected = !item[index].selected;
+                            });
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: item[index].selected
+                                  ? Colors.red
+                                  : Colors.white,
                               borderRadius: BorderRadius.circular(6),
-                              border: Border.all(color: Colors.grey)),
-                          child: Column(
-                            children: <Widget>[
-                              Container(
-                                height: 100,
-                                width: 100,
-                                child: ClipOval(
-                                  child: Image.network(
-                                    item[index].img,
-                                    fit: BoxFit.fill,
+                            ),
+                            //border: Border.all(color: Colors.grey)),
+                            child: Column(
+                              children: <Widget>[
+                                Container(
+                                  height: 100,
+                                  width: 100,
+                                  child: ClipOval(
+                                    child: Image.network(
+                                      item[index].img,
+                                      fit: BoxFit.fill,
+                                    ),
                                   ),
                                 ),
-                              ),
-                              Container(
-                                child: Text(
-                                  item[index].name,
-                                  style: TextStyle(fontSize: 10),
+                                Container(
+                                  child: Text(
+                                    item[index].name,
+                                    style: TextStyle(fontSize: 10),
+                                  ),
                                 ),
-                              ),
-                            ],
+                                Container(
+                                  child: Row(
+                                    children: <Widget>[
+                                      Text(
+                                        "Rate: ",
+                                        style: TextStyle(fontSize: 10),
+                                      ),
+                                      Icon(
+                                        Icons.star,
+                                        color: Colors.yellow,
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         );
                       },
                     )),
+              ],
+            ),
+          ),
+          Container(
+            height: height * 0.16,
+            width: double.infinity,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  "CHI HAY NHAP TEN:",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
                 Padding(
-                  padding:
-                      EdgeInsets.only(left: width * 0.1, right: width * 0.1),
-                  child: InkWell(
-                    child: SizedBox(
-                      height: 40.0,
-                      width: double.infinity,
-                      child: Container(
-                        decoration: BoxDecoration(
-                            color: Colors.pinkAccent,
-                            borderRadius: BorderRadius.circular(10.0)),
-                        child: Center(
-                          child: Text('Đặt Lịch Ngay',
-                              style: TextStyle(
-                                  fontSize: 24.0,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white)),
+                  padding: EdgeInsets.all(8.0),
+                  child: TextField(
+                    decoration: new InputDecoration(
+                        border: new OutlineInputBorder(
+                            borderSide: new BorderSide(color: Colors.teal)),
+                        hintText: 'Moi chi nhap ho ten',
+                        //helperText: 'Keep it short, this is just a demo.',
+                        //labelText: 'Life story',
+                        prefixIcon: const Icon(
+                          Icons.person,
+                          color: Colors.green,
                         ),
-                      ),
-                    ),
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => OrderScreen()));
-                    },
+                        prefixText: ' ',
+                        //suffixText: 'USD',
+                        suffixStyle: const TextStyle(color: Colors.green)),
                   ),
                 ),
               ],
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(
+                left: width * 0.1, right: width * 0.1, top: width * 0.05),
+            child: InkWell(
+              child: SizedBox(
+                height: 40.0,
+                width: double.infinity,
+                child: Container(
+                  decoration: BoxDecoration(
+                      color: Colors.pinkAccent,
+                      borderRadius: BorderRadius.circular(10.0)),
+                  child: Center(
+                    child: Text('Đặt Lịch Ngay',
+                        style: TextStyle(
+                            fontSize: 24.0,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white)),
+                  ),
+                ),
+              ),
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => OrderScreen()));
+              },
             ),
           ),
         ],
@@ -252,5 +350,6 @@ class _BookSeviceState extends State<BookSevice>
 class Item {
   String img;
   String name;
+  bool selected = false;
   Item(this.img, this.name);
 }
