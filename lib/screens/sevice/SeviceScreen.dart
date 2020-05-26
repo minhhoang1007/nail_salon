@@ -7,7 +7,8 @@ class SeviceScreen extends StatefulWidget {
   // String ima;
   // String name;
   final Salon salon;
-  SeviceScreen({this.salon});
+  String phone;
+  SeviceScreen({this.salon, this.phone});
   // SeviceScreen({Key key, this.ima, this.name}) : super(key: key);
 
   @override
@@ -103,7 +104,10 @@ class _SeviceScreenState extends State<SeviceScreen> {
                           MaterialPageRoute(
                             builder: (context) => SeviceDetailScreen(
                               //name: item[index].name,
+                              salon: widget.salon,
+
                               service: listService[index],
+                              phone: widget.phone,
                             ),
                           ));
                     },

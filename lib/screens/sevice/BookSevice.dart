@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import 'dart:core';
 import 'package:intl/intl.dart';
+import 'package:nail_app/models/NailSalon.dart';
 import 'package:nail_app/screens/order/OrderScreen.dart';
 import 'dart:developer';
 
 class BookSevice extends StatefulWidget {
+  final Salon salon;
+  final Sevice sevice;
+  String phone;
+
+  BookSevice({this.sevice, this.salon, this.phone});
   @override
   _BookSeviceState createState() => _BookSeviceState();
 }
@@ -12,38 +18,29 @@ class BookSevice extends StatefulWidget {
 class _BookSeviceState extends State<BookSevice>
     with SingleTickerProviderStateMixin {
   TabController controller;
+  final textcontroller = TextEditingController();
+  String name = "";
+  String thoigian = "";
   List<Item> item = [
     Item(
-      "https://zema.com.vn/wp-content/uploads/bfi_thumb/son_gel_13-39j80fyhh0ebky3ohn12ww.jpg",
+      "https://kenh14cdn.com/thumb_w/620/2018/10/1/hai1344-153840589763529160131.jpg",
       "Tran Le Quoc",
     ),
     Item(
-      "https://zema.com.vn/wp-content/uploads/bfi_thumb/son_gel_13-39j80fyhh0ebky3ohn12ww.jpg",
+      "https://image.thanhnien.vn/768/uploaded/thuyptt/2018_11_29/rz2_vjaf.jpg",
       "Le Binh Phat",
     ),
     Item(
-      "https://zema.com.vn/wp-content/uploads/bfi_thumb/son_gel_13-39j80fyhh0ebky3ohn12ww.jpg",
+      "https://nld.mediacdn.vn/2019/11/1/tri5176-15725766498891910612748.jpg",
       "Ngo Kien Huy",
     ),
     Item(
-      "https://zema.com.vn/wp-content/uploads/bfi_thumb/son_gel_13-39j80fyhh0ebky3ohn12ww.jpg",
-      "Ngo Kien Huy",
+      "https://media.doisongvietnam.vn/u/rootimage/editor/2017/07/10/22/42/w825/51499679774_5269.jpg",
+      "BB Tran",
     ),
     Item(
-      "https://zema.com.vn/wp-content/uploads/bfi_thumb/son_gel_13-39j80fyhh0ebky3ohn12ww.jpg",
-      "Ngo Kien Huy",
-    ),
-    Item(
-      "https://zema.com.vn/wp-content/uploads/bfi_thumb/son_gel_13-39j80fyhh0ebky3ohn12ww.jpg",
-      "Ngo Kien Huy",
-    ),
-    Item(
-      "https://zema.com.vn/wp-content/uploads/bfi_thumb/son_gel_13-39j80fyhh0ebky3ohn12ww.jpg",
-      "Ngo Kien Huy",
-    ),
-    Item(
-      "https://zema.com.vn/wp-content/uploads/bfi_thumb/son_gel_13-39j80fyhh0ebky3ohn12ww.jpg",
-      "Ngo Kien Huy",
+      "https://afamilycdn.com/2019/11/26/1557383477-158-155736502822684-thumbnail-1574785338428595038078.jpg",
+      "Ninh Dương Lan Ngọc",
     ),
   ];
   List<String> hour = [
@@ -66,7 +63,72 @@ class _BookSeviceState extends State<BookSevice>
     controller = TabController(length: 2, vsync: this, initialIndex: 0);
   }
 
+  bool choose = false;
   var now = new DateTime.now();
+  void _showDialog() {
+    // flutter defined function
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Thông báo"),
+          content: new Text("Xin vui lòng đặt thời gian khác"),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            FlatButton(
+              child: new Text("OK"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _showDialog1() {
+    // flutter defined function
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Thông báo"),
+          content: new Text("Xin vui lòng nhập họ tên"),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            FlatButton(
+              child: new Text("OK"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  // checkTextFieldEmptyOrNot() {
+  //   String text1;
+  //   text1 = textcontroller.text;
+  //   if (text1 == '') {
+  //     _showDialog1();
+  //   } else {
+  //     Navigator.push(
+  //         context,
+  //         MaterialPageRoute(
+  //             builder: (context) => OrderScreen(
+  //                   ten: textcontroller.text,
+  //                   thoigian: DateFormat("dd-MM-yyyy").format(now),
+  //                 )));
+  //   }
+  // }
+  @override
+  void dispose() {
+    textcontroller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -117,7 +179,10 @@ class _BookSeviceState extends State<BookSevice>
                         itemBuilder: (BuildContext context, int index) {
                           return GestureDetector(
                             onTap: () {
-                              setState(() {});
+                              setState(() {
+                                index % 2 == 0 ? _showDialog() : choose = true;
+                                thoigian = hour[index];
+                              });
                             },
                             child: Container(
                               height: height * 0.06,
@@ -166,11 +231,13 @@ class _BookSeviceState extends State<BookSevice>
                                           border:
                                               Border.all(color: Colors.grey)),
                                       child: Center(
-                                        child: Icon(
-                                          Icons.check,
-                                          color: Colors.green,
-                                          size: 8,
-                                        ),
+                                        child: choose
+                                            ? Icon(
+                                                Icons.check,
+                                                color: Colors.green,
+                                                size: 8,
+                                              )
+                                            : Container(),
                                       ),
                                     ),
                                   ),
@@ -233,16 +300,17 @@ class _BookSeviceState extends State<BookSevice>
                           onTap: () {
                             setState(() {
                               item[index].selected = !item[index].selected;
+                              name = item[index].name;
                             });
                           },
                           child: Container(
+                            padding: EdgeInsets.only(left: 10),
                             decoration: BoxDecoration(
                               color: item[index].selected
                                   ? Colors.red
                                   : Colors.white,
                               borderRadius: BorderRadius.circular(6),
                             ),
-                            //border: Border.all(color: Colors.grey)),
                             child: Column(
                               children: <Widget>[
                                 Container(
@@ -267,6 +335,10 @@ class _BookSeviceState extends State<BookSevice>
                                       Text(
                                         "Rate: ",
                                         style: TextStyle(fontSize: 10),
+                                      ),
+                                      Icon(
+                                        Icons.star,
+                                        color: Colors.yellow,
                                       ),
                                       Icon(
                                         Icons.star,
@@ -297,18 +369,16 @@ class _BookSeviceState extends State<BookSevice>
                 Padding(
                   padding: EdgeInsets.all(8.0),
                   child: TextField(
-                    decoration: new InputDecoration(
-                        border: new OutlineInputBorder(
-                            borderSide: new BorderSide(color: Colors.teal)),
+                    controller: textcontroller,
+                    decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.teal)),
                         hintText: 'Moi chi nhap ho ten',
-                        //helperText: 'Keep it short, this is just a demo.',
-                        //labelText: 'Life story',
                         prefixIcon: const Icon(
                           Icons.person,
                           color: Colors.green,
                         ),
                         prefixText: ' ',
-                        //suffixText: 'USD',
                         suffixStyle: const TextStyle(color: Colors.green)),
                   ),
                 ),
@@ -336,8 +406,21 @@ class _BookSeviceState extends State<BookSevice>
                 ),
               ),
               onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => OrderScreen()));
+                setState(() {
+                  textcontroller.text.isEmpty
+                      ? _showDialog1()
+                      : Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => OrderScreen(
+                                    ten: textcontroller.text,
+                                    thoigian:
+                                        DateFormat("dd-MM-yyyy").format(now),
+                                    salon: widget.salon,
+                                    sevice: widget.sevice,
+                                  )));
+                });
+                //checkTextFieldEmptyOrNot();
               },
             ),
           ),

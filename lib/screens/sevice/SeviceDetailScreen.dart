@@ -8,7 +8,9 @@ class SeviceDetailScreen extends StatefulWidget {
   // String name;
   // SeviceDetailScreen({Key key, this.name}) : super(key: key);
   final Sevice service;
-  SeviceDetailScreen({this.service});
+  final Salon salon;
+  String phone;
+  SeviceDetailScreen({this.service, this.salon, this.phone});
 
   @override
   _SeviceDetailScreenState createState() => _SeviceDetailScreenState();
@@ -104,7 +106,9 @@ class _SeviceDetailScreenState extends State<SeviceDetailScreen> {
                 child: GridView.builder(
                   itemCount: listStep.length,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3),
+                    crossAxisCount: 3,
+                    childAspectRatio: 0.8,
+                  ),
                   itemBuilder: (BuildContext context, int index) {
                     return GestureDetector(
                       onTap: () {
@@ -113,6 +117,7 @@ class _SeviceDetailScreenState extends State<SeviceDetailScreen> {
                         });
                       },
                       child: Container(
+                        height: 300,
                         //color: isLoad ? Colors.pinkAccent : Colors.white,
                         child: Column(
                           children: <Widget>[
@@ -190,8 +195,14 @@ class _SeviceDetailScreenState extends State<SeviceDetailScreen> {
                   ),
                 ),
                 onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => BookSevice()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => BookSevice(
+                                salon: widget.salon,
+                                sevice: widget.service,
+                                phone: widget.phone,
+                              )));
                 },
               ),
             ),

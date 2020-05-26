@@ -13,6 +13,7 @@ class EnterPhone extends StatefulWidget {
 class _EnterPhoneState extends State<EnterPhone> {
   final _phoneControllner = TextEditingController();
   final _codeControllner = TextEditingController();
+
   Future<bool> login(String phone, BuildContext context) async {
     FirebaseAuth _auth = FirebaseAuth.instance;
     _auth.verifyPhoneNumber(
@@ -25,6 +26,34 @@ class _EnterPhoneState extends State<EnterPhone> {
           if (user != null) {
             Navigator.push(
                 context, MaterialPageRoute(builder: (context) => HomeScreen()));
+          } else {
+            showDialog(
+              context: context,
+              barrierDismissible: false,
+              builder: (context) {
+                return AlertDialog(
+                  title: Text("Bạn nhập sai số điện thoại"),
+                  content: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      TextField(
+                        controller: _codeControllner,
+                      ),
+                    ],
+                  ),
+                  actions: <Widget>[
+                    FlatButton(
+                      child: Text("OK"),
+                      textColor: Colors.white,
+                      color: Colors.pink,
+                      onPressed: () async {
+                        Navigator.of(context).pop();
+                      },
+                    )
+                  ],
+                );
+              },
+            );
           }
         },
         verificationFailed: (AuthException exception) {
@@ -59,6 +88,7 @@ class _EnterPhoneState extends State<EnterPhone> {
                             await _auth.signInWithCredential(credential);
                         FirebaseUser user = result.user;
                         if (user != null) {
+                          Navigator.of(context).pop();
                           Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -175,10 +205,14 @@ class _EnterPhoneState extends State<EnterPhone> {
             ),
             GestureDetector(
               onTap: () {
-                final phone = _phoneControllner.text.trim();
+                final phone = "+84" + _phoneControllner.text.trim();
                 login(phone, context);
-                // Navigator.push(context,
-                //     MaterialPageRoute(builder: (context) => HomeScreen()));
+                // Navigator.push(
+                //     context,
+                //     MaterialPageRoute(
+                //         builder: (context) => HomeScreen(
+                //               phone: _phoneControllner.text,
+                //             )));
               },
               child: Container(
                 margin:

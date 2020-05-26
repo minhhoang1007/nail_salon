@@ -22,12 +22,13 @@ class _NearBySalonState extends State<NearBySalon> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.pinkAccent,
         leading: IconButton(
             icon: Icon(Icons.arrow_back),
             onPressed: () {
-              //
+              Navigator.of(context).pop();
             }),
-        title: Text("New York"),
+        title: Text("Hà Nội"),
         actions: <Widget>[
           IconButton(
               icon: Icon(Icons.search),
@@ -51,7 +52,7 @@ class _NearBySalonState extends State<NearBySalon> {
     return Align(
       alignment: Alignment.topLeft,
       child: IconButton(
-          icon: Icon(Icons.zoom_in, color: Color(0xff6200ee)),
+          icon: Icon(Icons.zoom_in, color: Colors.pinkAccent),
           onPressed: () {
             zoomVal--;
             _minus(zoomVal);
@@ -63,7 +64,7 @@ class _NearBySalonState extends State<NearBySalon> {
     return Align(
       alignment: Alignment.topRight,
       child: IconButton(
-          icon: Icon(Icons.zoom_out, color: Color(0xff6200ee)),
+          icon: Icon(Icons.zoom_out, color: Colors.pinkAccent),
           onPressed: () {
             zoomVal++;
             _plus(zoomVal);
@@ -265,8 +266,9 @@ class _NearBySalonState extends State<NearBySalon> {
       width: MediaQuery.of(context).size.width,
       child: GoogleMap(
         mapType: MapType.normal,
-        initialCameraPosition:
-            CameraPosition(target: LatLng(40.712776, -74.005974), zoom: 12),
+        initialCameraPosition: CameraPosition(
+            target: LatLng(37.42796133580664, -122.085749655962),
+            zoom: 14.4746),
         onMapCreated: (GoogleMapController controller) {
           _controller.complete(controller);
         },

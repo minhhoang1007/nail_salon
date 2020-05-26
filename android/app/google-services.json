@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "967095126668",
+    "firebase_url": "https://fir-nail.firebaseio.com",
+    "project_id": "fir-nail",
+    "storage_bucket": "fir-nail.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:967095126668:android:8704ef6d057142731749a9",
+        "android_client_info": {
+          "package_name": "com.example.nail_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "967095126668-ljq766f3ujperm2giasn3vkmqtfs6df2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.nail_app",
+            "certificate_hash": "d33294634d9d84a02b540e9c30ca6831571b57e4"
+          }
+        },
+        {
+          "client_id": "967095126668-r0l18g9n88vsi7llfckl11dnt035feip.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCVpops8Z0StuEtPAx-JHzVBgmDYLK19kQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "967095126668-r0l18g9n88vsi7llfckl11dnt035feip.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -69,3 +69,39 @@ class Step {
     );
   }
 }
+
+class TimeBook {
+  final int id;
+  final String time;
+  final bool status;
+  TimeBook({
+    this.id,
+    this.time,
+    this.status,
+  });
+  factory TimeBook.fromJson(Map<String, dynamic> json) {
+    return TimeBook(
+      id: json['id'],
+      time: json['time'],
+      status: json['status'],
+    );
+  }
+}
+
+class Stylist {
+  final int id;
+  final String name;
+  final int rate;
+  Stylist({
+    this.id,
+    this.name,
+    this.rate,
+  });
+  factory Stylist.fromJson(Map<String, dynamic> json) {
+    return Stylist(
+      id: json['id'],
+      name: json['name'],
+      rate: json['rate'],
+    );
+  }
+}

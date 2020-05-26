@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:nail_app/models/NailSalon.dart';
+import 'package:nail_app/screens/home/HomeScreen.dart';
 
 class OrderScreen extends StatefulWidget {
-  OrderScreen({Key key}) : super(key: key);
+  final Salon salon;
+  final Sevice sevice;
+  String ten;
+  String thoigian;
+  OrderScreen({this.ten, this.thoigian, this.salon, this.sevice});
 
   @override
   _OrderScreenState createState() => _OrderScreenState();
@@ -24,7 +30,13 @@ class _OrderScreenState extends State<OrderScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.of(context).pop();
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => HomeScreen()));
+                      },
                       child: Container(
                         height: 40,
                         width: 40,
@@ -39,7 +51,12 @@ class _OrderScreenState extends State<OrderScreen> {
                     Container(
                       height: 50,
                       width: 50,
-                      color: Colors.green,
+                      child: ClipOval(
+                        child: Image.asset(
+                          "assets/images/logo.jpg",
+                          fit: BoxFit.cover,
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -76,13 +93,15 @@ class _OrderScreenState extends State<OrderScreen> {
                           Row(
                             children: <Widget>[
                               Icon(Icons.date_range),
-                              Text("17h ngày 21/1/2019")
+                              //Text("17h ngày 21/1/2019")
+                              Text(widget.thoigian)
                             ],
                           ),
                           Row(
                             children: <Widget>[
                               Icon(Icons.person_pin),
-                              Text("Nguyen van A")
+                              //Text("Nguyen van A")
+                              Text(widget.ten)
                             ],
                           ),
                           Divider(
@@ -97,7 +116,8 @@ class _OrderScreenState extends State<OrderScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text("Số 1 Cầu Giấy",
+                          //Text("Số 1 Cầu Giấy",
+                          Text(widget.salon.address,
                               style: TextStyle(fontWeight: FontWeight.bold)),
                           Row(
                             children: <Widget>[
@@ -108,7 +128,8 @@ class _OrderScreenState extends State<OrderScreen> {
                           Row(
                             children: <Widget>[
                               Icon(Icons.phone),
-                              Text("0124454545")
+                              Text(widget.salon.phone)
+                              //Text("0124454545")
                             ],
                           ),
                           Row(

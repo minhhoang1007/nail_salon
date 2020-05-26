@@ -7,7 +7,8 @@ import 'package:nail_app/screens/sevice/SeviceScreen.dart';
 import 'package:nail_app/screens/signin/SignIn.dart';
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({Key key}) : super(key: key);
+  String phone;
+  HomeScreen({this.phone});
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -185,6 +186,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       // ima: items[index].img,
                                       // name: items[index].name,
                                       salon: listData[index],
+                                      phone: widget.phone,
                                     )));
                         //builder: (context) => RestaurantMenu()));
                       },
